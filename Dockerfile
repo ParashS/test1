@@ -6,6 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 #FROM reg-harbor.agiletechnologies.in/test1/test1:pro AS build
 WORKDIR /src
