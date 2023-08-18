@@ -1,0 +1,22 @@
+pipeline {
+    // ? Select a Jenkins slave with Docker capabilities
+    agent any
+	environment {
+        PROJECT_NAME = "test1" //git repo name
+        BRANCH_NAME = "master" //git branch name
+        DOCKER_IMG_NAME = "test1" //same as jenkins project name & harbour image name
+	}
+    options {
+        timeout(time: 25, unit: "MINUTES")   // timeout on whole pipeline job
+    }
+    stages{
+        stage("git checkout") {
+            steps {
+                checkout([$class: "GitSCM", branches: [[name: "*/${BRANCH_NAME}"]], extensions: [], userRemoteConfigs: [[credentialsId: "GITHUB-CREDENTIALS-NEW", url: "https://github.com/ParashS/${PROJECT_NAME}.git"]]])
+                withDockerRegistry(credentialsId: "DOCKER_REGISTRY_CREDENTIALS-SYSTEM", url: "https://reg-harbor.agiletechnologies.in") {
+                }
+                        
+            }
+        }
+    }
+}
