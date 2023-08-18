@@ -8,7 +8,7 @@ services:
     image: reg-harbor.agiletechnologies.in/test1/test1:latest
     hostname: test1
     container_name: test1
-        networks:
+    networks:
         - default
     ports:
         - 7171:80
